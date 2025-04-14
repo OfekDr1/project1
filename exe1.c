@@ -18,11 +18,6 @@ int main() {
     int size = 0;
 
     number* result = primeSums(n1, n2, &size);
-
-    printf("Found %d numbers where digit sum is prime:\n", size);
-    for (int i = 0; i < size; i++) {
-        printf("Number: %llu, Digit Sum: %d\n", result[i].num, result[i].sum);
-    }
     printArray(result, size);
     free(result);
 }
@@ -32,22 +27,26 @@ number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size)
     int temp = 0;
     int k = 0;
     int size = 2;
-    number* arr = (number*)malloc(sizeof(number));
-    for (int i = n1; i <= n2; i++) {
+    number* arr = (number*)malloc(size * sizeof(number));
+    if (!arr) return NULL;
+
+    for (unsigned long long i = n1; i <= n2; i++) {
         temp = digitSum(i);
         if (isPrime(temp)) 
         {
-            if (size = k)
+            if (size == k)
             {
-                arr = (number*)realloc(arr,size * sizeof(number));
                 size *= 2;
+                arr = (number*)realloc(arr,size * sizeof(number));
+                if (!arr) return NULL;
             }
             arr[k].num = i;
-            arr[k++].sum = temp;
+            arr[k].sum = temp;
+            k++;
         }
     }
     *p_size = k;
-    arr = (number*)realloc(arr, (*p_size) * sizeof(number));
+    arr = (number*)realloc(arr, k * sizeof(number));
     return arr;
 }
 
