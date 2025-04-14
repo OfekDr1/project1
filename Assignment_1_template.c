@@ -1,7 +1,7 @@
 /*
 	Assigned by:
-	Student 1 Ori Amsalem #206508731
-	Student 2 Ofek Drori #211785028
+	Student1_Full_Name #ID
+	Student2_Full_Name #ID
 */
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -18,6 +18,7 @@
 #define COLS 5
 
 /* Type definitions */
+
 typedef struct number
 {
 	unsigned long long num;
@@ -42,29 +43,28 @@ void Ex2();
 void Ex3();
 
 Number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size);
-// int ** matrixMaxNeighbor(int A[][COLS], int rows, int cols);
-// void createThreeLists(int** A, int rows, int cols, Item** pL1, Item** pL2);
+int ** matrixMaxNeighbor(int A[][COLS], int rows, int cols);
+void createThreeLists(int** A, int rows, int cols, Item** pL1, Item** pL2);
 
 /* Declarations of auxiliary functions */
 
 int isPrime(int num);
-// int* read_data(int* p_counter);
-// int digitSum(unsigned long long num);
+int digitSum(unsigned long long num);
 
-// int neighborMax(int A[][COLS], int rows, int cols, int i, int j);
-// int** allocMatrix(int rows, int cols);
+int neighborMax(int A[][COLS], int rows, int cols, int i, int j);
+int** allocMatrix(int rows, int cols);
 
-// Triad createThree(int i, int j, int value);
+Triad createThree(int i, int j, int value);
 // insert - to declare the function yourself
 
-// void printArray(Number* arr, int size);
-// void inputMatrix(int A[][COLS], int rows, int cols);
-// void printMatrix(int A[][COLS], int rows, int cols);
-// void printDynamicMatrix(int** A, int rows, int cols);
-// void freeMatrix(void** A, int rows);
-// void inputDynamicMatrix(int** A, int rows, int cols);
-// void printList(Item* lst);
-// void freeList(Item* lst);
+void printArray(Number* arr, int size);
+void inputMatrix(int A[][COLS], int rows, int cols);
+void printMatrix(int A[][COLS], int rows, int cols);
+void printDynamicMatrix(int** A, int rows, int cols);
+void freeMatrix(void** A, int rows);
+void inputDynamicMatrix(int** A, int rows, int cols);
+void printList(Item* lst);
+void freeList(Item* lst);
 
 /* ------------------------------- */
 
@@ -93,23 +93,7 @@ int main()
 		return 0;
 }
 
-int* read_data(int* p_counter) {
-	int i = 0, num, * a, * temp, size = 2; //start with reading 2 integers
-	a = temp = (int*)realloc(NULL, size * sizeof(int)); //malloc(size * sizeof(int))
-	if (!temp) return NULL;
-	printf("Enter the numbers:\n");
-	while (temp && scanf("%d", &num) == 1) { //successful allocation and correct input
-		a = temp;
-		a[i++] = num;
-		if (i == size) { //memory fully consumed
-			size *= 2;
-			temp = (int*)realloc(a, size * sizeof(int));
-		} //if
-	} //while
-	*p_counter = i;
-	a = (int*)realloc(a, *p_counter * sizeof(int));
-	return a;
-	}
+
 /* Function definitions */
 
 void Ex1()
