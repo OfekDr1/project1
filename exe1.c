@@ -6,36 +6,71 @@ typedef struct number
 {
 	unsigned long long num;
 	int sum;
-} Number;
+} number;
 
-Number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size);
+number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size);
 int* read_data(int* p_counter);
 int digitSum(unsigned long long num);
+int isPrime(int num);
+void printArray(number* arr, int size);
 
 
-int main(){
-    int select = 0, i, all_Ex_in_loop = 0;
-	printf("Run menu once or cyclically?\n(Once - enter 0, cyclically - enter other number) ");
-	if (scanf("%d", &all_Ex_in_loop) == 1)
-		do
-		{
-			for (i = 1; i <= N; i++)
-				printf("Ex%d--->%d\n", i, i);
-			printf("EXIT-->0\n");
-			do {
-				select = 0;
-				printf("please select 0-%d : ", N);
-				scanf("%d", &select);
-			} while ((select < 0) || (select > N));
-			switch (select)
-			{
-			case 1: Ex1(); break;
-			case 2: Ex2(); break;
-			case 3: Ex3(); break;
-			}
-		} while (all_Ex_in_loop && select);
+    void Ex1()
+{
+    unsigned long long n1 = 10, n2 = 30;
+    int size = 0;
+
+    number* result = primeSums(n1, n2, &size);
+
+    printf("Found %d numbers where digit sum is prime:\n", size);
+    for (int i = 0; i < size; i++) {
+        printf("Number: %llu, Digit Sum: %d\n", result[i].num, result[i].sum);
+    }
+
+    free(result);
+
+    return 0;
+	
+}
+
+number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size)
+{
+    int temp = 0;
+    int k = 0;
+    number* arr = (number*)malloc(sizeof(number));
+    for(int i = n1; i <= n2; i++){
+        temp = digitSum(i);
+        if(isPrime(temp)){
+            arr[k].num = i;
+            arr[k++].sum = temp;
+        }
+    }
+}
+
+void printArray(number* arr, int size) {
+    for (int i = 0; i < size; i++) {
+        printf("Number: %llu, Digit Sum: %d\n", arr[i].num, arr[i].sum);
+    }
+}
+
+int digitSum(unsigned long long num)
+{
+    int sum = 0;
+    while(num != 0){
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+
+int isPrime(int num) {
+    if (num < 2) return 0;
+    int i;
+    for (i = 2; i <= i*i; i++) {
+        if (num % i == 0) 
 		return 0;
-
+    }
+    return 1;
 }
 
 int* read_data(int* p_counter) {
@@ -55,34 +90,3 @@ int* read_data(int* p_counter) {
 	a = (int*)realloc(a, *p_counter * sizeof(int));
 	return a;
 	}
-
-    void Ex1()
-{
-	/* Called functions: 
-		primeSums, printArray */
-	/* Write Code Here! */
-}
-
-Number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size){
-    
-}
-
-int digitSum(unsigned long long num)
-{
-    int sum = 0;
-    while(num != 0){
-        sum += num % 10;
-        num /= 10;
-    }
-    return sum;
-}
-
-int isPrime(int num) {
-    if (num < 2) return 0;
-    int i;
-    for (i = 2; i <= i*i(num); i++) {
-        if (n % i == 0) 
-		return 0;
-    }
-    return 1;
-}
