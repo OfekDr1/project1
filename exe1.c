@@ -70,5 +70,9 @@ Number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size){
 int digitSum(unsigned long long num)
 {
     int sum = 0;
-    while()
+    while(num != 0){
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
 }
