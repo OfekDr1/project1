@@ -9,18 +9,11 @@ typedef struct number
 } number;
 
 number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size);
-int* read_data(int* p_counter);
 int digitSum(unsigned long long num);
 int isPrime(int num);
 void printArray(number* arr, int size);
-void Ex1();
 
 int main() {
-    Ex1();
-}
-
-void Ex1()
-{
     unsigned long long n1 = 10, n2 = 30;
     int size = 0;
 
@@ -30,9 +23,8 @@ void Ex1()
     for (int i = 0; i < size; i++) {
         printf("Number: %llu, Digit Sum: %d\n", result[i].num, result[i].sum);
     }
-
+    printArray(result, size);
     free(result);
-
 }
 
 number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size)
@@ -52,9 +44,11 @@ number* primeSums(unsigned long long n1, unsigned long long n2, int* p_size)
             }
             arr[k].num = i;
             arr[k++].sum = temp;
- 
         }
     }
+    *p_size = k;
+    arr = (number*)realloc(arr, (*p_size) * sizeof(number));
+    return arr;
 }
 
 void printArray(number* arr, int size) {
@@ -82,21 +76,3 @@ int isPrime(int num) {
     }
     return 1;
 }
-
-//int* read_data(int* p_counter) {
-//    int i = 0, num, * a, * temp, size = 2; //start with reading 2 integers
-//    a = temp = (int*)realloc(NULL, size * sizeof(int)); //malloc(size * sizeof(int))
-//    if (!temp) return NULL;
-//    printf("Enter the numbers:\n");
-//    while (temp && scanf("%d", &num) == 1) { //successful allocation and correct input
-//        a = temp;
-//        a[i++] = num;
-//        if (i == size) { //memory fully consumed
-//            size *= 2;
-//            temp = (int*)realloc(a, size * sizeof(int));
-//        } //if
-//    } //while
-//    *p_counter = i;
-//    a = (int*)realloc(a, *p_counter * sizeof(int));
-//    return a;
-//}
