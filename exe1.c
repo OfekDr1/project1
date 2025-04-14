@@ -32,8 +32,6 @@ int main(){
     }
 
     free(result);
-
-    return 0;
 	
 }
 
@@ -69,28 +67,29 @@ int digitSum(unsigned long long num)
 
 int isPrime(int num) {
     if (num < 2) return 0;
+
     int i;
-    for (i = 2; i <= i*i; i++) {
+    for (i = 2; num <= i*i; i++) {
         if (num % i == 0) 
 		return 0;
     }
     return 1;
 }
 
-int* read_data(int* p_counter) {
-	int i = 0, num, * a, * temp, size = 2; //start with reading 2 integers
-	a = temp = (int*)realloc(NULL, size * sizeof(int)); //malloc(size * sizeof(int))
-	if (!temp) return NULL;
-	printf("Enter the numbers:\n");
-	while (temp && scanf("%d", &num) == 1) { //successful allocation and correct input
-		a = temp;
-		a[i++] = num;
-		if (i == size) { //memory fully consumed
-			size *= 2;
-			temp = (int*)realloc(a, size * sizeof(int));
-		} //if
-	} //while
-	*p_counter = i;
-	a = (int*)realloc(a, *p_counter * sizeof(int));
-	return a;
-	}
+// int* read_data(int* p_counter) {
+// 	int i = 0, num, * a, * temp, size = 2; //start with reading 2 integers
+// 	a = temp = (int*)realloc(NULL, size * sizeof(int)); //malloc(size * sizeof(int))
+// 	if (!temp) return NULL;
+// 	printf("Enter the numbers:\n");
+// 	while (temp && scanf("%d", &num) == 1) { //successful allocation and correct input
+// 		a = temp;
+// 		a[i++] = num;
+// 		if (i == size) { //memory fully consumed
+// 			size *= 2;
+// 			temp = (int*)realloc(a, size * sizeof(int));
+// 		} //if
+// 	} //while
+// 	*p_counter = i;
+// 	a = (int*)realloc(a, *p_counter * sizeof(int));
+// 	return a;
+// 	}
