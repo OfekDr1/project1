@@ -76,3 +76,13 @@ int digitSum(unsigned long long num)
     }
     return sum;
 }
+
+int isPrime(int num) {
+    if (num < 2) return 0;
+    int i;
+    for (i = 2; i <= i*i(num); i++) {
+        if (n % i == 0) 
+		return 0;
+    }
+    return 1;
+}
