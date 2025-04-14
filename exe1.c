@@ -13,7 +13,11 @@ int* read_data(int* p_counter);
 int digitSum(unsigned long long num);
 int isPrime(int num);
 void printArray(number* arr, int size);
+void Ex1();
 
+int main(){
+	Ex1();
+}
 
     void Ex1()
 {
