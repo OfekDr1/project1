@@ -16,8 +16,8 @@
 #define N 3
 #define ROWS 4
 #define COLS 5
+ori
 
-/* Type definitions */
 
 typedef struct number
 {
