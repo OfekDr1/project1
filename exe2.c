@@ -3,50 +3,72 @@
 #include <malloc.h>
 #define N 3
 #define ROWS 4
-#define COLS 5
+#define COLS 4
 
 //int** matrixMaxNeighbor(int A[][COLS], int rows, int cols);
-int neighborMax(int A[][N], int rows, int cols, int i, int j);
+int neighborMax(int A[ROWS][COLS], int rows, int cols, int i, int j);
 //int** allocMatrix(int rows, int cols);
 int max(int a, int b);
+int** allocMatrix(int rows, int cols);
+int** matrixMaxNeighbor(int A[ROWS][COLS], int rows, int cols);
+void print_Mat(int** mat, int rows, int cols);
 
 int main() {
-    int A[N][N] = { 1,2,3,4,5,6,7,8,9 };
-    printf("%d", neighborMax(A, N, N, 2, 2));
+	int A[ROWS][COLS] = { 5, 12, 6 , 8 , 4 ,7, 1 ,9 , 13, 20 , 5, 2 , 18, 10, 2, 6 };
+	//print_Mat(A[ROWS][COLS], ROWS, COLS);
+	int** B = matrixMaxNeighbor(A, ROWS, COLS);
+	print_Mat(B, ROWS, COLS);
 }
 
-int neighborMax(int A[][N], int rows, int cols, int i, int j)//לבדוק האם מקבלים מטריצה ריקה
+int neighborMax(int A[ROWS][COLS], int rows, int cols, int i, int j)//לבדוק האם מקבלים מטריצה ריקה
 {
-    if (i == 0)//מקרה קיצון שורה ראשונה
-    {
-        if (j == 0)
-            return max(A[i + 1][j], A[i][j + 1]);
-        else if (j == cols - 1)
-            return max(A[i + 1][j], A[i][j - 1]);
-        else
-            return max(max(A[i][j - 1], A[i][j + 1]), A[i + 1][j]);
-    }
-    if (j == 0)//מקרה קיצון טור ראשון
-    {
-        if (i == rows - 1)
-            return max(A[i + 1][j], A[i][j + 1]);
-        else
-            return max(max(A[i - 1][j], A[i + 1][j]), A[i][j + 1]);
-    }
-    if (i == rows - 1)//מקרה קיצון שורה אחרונה
-    {
-        if (j == cols - 1)
-            return max(A[i - 1][j], A[i][j - 1]);
-        else
-            return max(max(A[i][j - 1], A[i - 1][j]), A[i][j + 1]);
-    }
-    else if (j == cols - 1)//מקרה קצון טור אחרון
-    {
-        return max(max(A[i - 1][j], A[i][j - 1]), A[i + 1][j]);
-    }
-    return max(max(A[i + 1][j], A[i - 1][j]), max(A[i][j - 1], A[i][j - 1]));
+	int maxVal = -214748648; // מינימום של int
+
+	if (i > 0)
+		maxVal = max(maxVal, A[i - 1][j]);
+	if (i < rows - 1)
+		maxVal = max(maxVal, A[i + 1][j]);
+	if (j > 0)
+		maxVal = max(maxVal, A[i][j - 1]);
+	if (j < cols - 1)
+		maxVal = max(maxVal, A[i][j + 1]);
+
+	return maxVal;
 }
 
 int max(int a, int b) {
-    return a > b ? a : b;
+	return a > b ? a : b;
+}
+
+int** allocMatrix(int rows, int cols)
+{
+	int** mat = (int**)calloc(rows,sizeof(int*)); // הקצאה דינמית של שורות
+	for (int i = 0; i < rows; i++)
+		mat[i] = (int*)calloc(cols, sizeof(int)); // הקצאה דינמית של שורות
+
+	return mat;
+}
+
+int** matrixMaxNeighbor(int A[ROWS][COLS], int rows, int cols) {
+	int** B = NULL;
+	B = allocMatrix(rows, cols);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			B[i][j] = neighborMax(A, rows, cols, i, j);
+		}
+	}
+
+	return B;
+}
+
+void print_Mat(int** mat, int rows, int cols)
+{
+	int i, j;
+	//a = NULL;
+	for (i = 0; i < rows; i++)
+	{
+		for (j = 0; j < cols; j++)
+			printf("%8d", mat[i][j]);
+		printf("\n");
+	}
 }
