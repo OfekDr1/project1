@@ -65,6 +65,7 @@ void freeMatrix(void** A, int rows);
 void inputDynamicMatrix(int** A, int rows, int cols);
 void printList(Item* lst);
 void freeList(Item* lst);
+int max(int a, int b);
 
 /* ------------------------------- */
 
@@ -116,9 +117,10 @@ void Ex1()
 
 void Ex2()
 {
-    /* Called functions:
-        inputMatrix, printMatrix, matrixMaxNeighbor, printDynamicMatrix, freeMatrix */
-        /* Write Code Here! */
+    int A[ROWS][COLS] = { 5, 12, 6 , 8 , 4 ,7, 1 ,9 , 13, 20 , 5, 2 , 18, 10, 2, 6 };
+	//print_Mat(A[ROWS][COLS], ROWS, COLS);
+	int** B = matrixMaxNeighbor(A, ROWS, COLS);
+	printDynamicMatrix(B, ROWS, COLS);
 }
 
 void Ex3()
@@ -180,13 +182,40 @@ int isPrime(int num) {
     return 1;
 }
 
+int max(int a, int b) {
+	return a > b ? a : b;
+}
 
 int** matrixMaxNeighbor(int A[][COLS], int rows, int cols)
 {
-    /* Called functions:
-        neighborMax, allocMatrix */
-        /* Write Code Here! */
+    int** B = NULL;
+	B = allocMatrix(rows, cols);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			B[i][j] = neighborMax(A, rows, cols, i, j);
+		}
 }
+
+int** allocMatrix(int rows, int cols)
+{
+	int** mat = (int**)calloc(rows,sizeof(int*)); // הקצאה דינמית של שורות
+	for (int i = 0; i < rows; i++)
+		mat[i] = (int*)calloc(cols, sizeof(int)); // הקצאה דינמית של שורות
+
+	return mat;
+}
+
+void printDynamicMatrix(int** A, int rows, int cols){
+int i, j;
+//a = NULL;
+for (i = 0; i < rows; i++)
+{
+    for (j = 0; j < cols; j++)
+        printf("%8d", mat[i][j]);
+    printf("\n");
+}
+}
+
 void createThreeLists(int** A, int rows, int cols, Item** pL1, Item** pL2)
 {
     /* Called functions:
