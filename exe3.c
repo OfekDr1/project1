@@ -6,7 +6,7 @@
 #define COLS 5
 
 typedef struct node{
-    char data;
+    Triad data;
     struct node* next;
 } node;
 
@@ -16,20 +16,23 @@ typedef struct triad
 } Triad;
 
 Triad createThree(int i, int j, int value);
-node* createNode(int data,node* next);
+node* createNode(Triad data,node* next);
 void createThreeLists(int **A, int rows, int cols, node **pL1, node **pL2);
+void insert_to_list(node **head ,Triad data);
 void print_list(node* head);
 void free_list(node** head);
 
 int main()
 {
-    int arr[ROWS][COLS] ={
+    int A[ROWS][COLS] ={
         3, 2, 5, 3, 6,
         8, 3, 3, 6, 7,
         0, 6, 4, 5, 6,
         9, 8, 1, 6, 1,
     };
     
+    Triad t = createThree()
+    createNode()
 
 }
 
@@ -42,9 +45,9 @@ Triad createThree(int i, int j, int value)
     return t;
 }
 
-node *createNode(int data, node *next)
+node *createNode(Triad data, node *next)
 {
-    int c = data;
+    Triad c = data;
     node* item = (node*)malloc(sizeof(node));
     item->data = c;
     item->next = next;
@@ -72,4 +75,27 @@ void free_list(node** head){
 void createThreeLists(int **A, int rows, int cols, node **pL1, node **pL2)
 {
 
+}
+
+void insert_to_list(node **head ,Triad data)
+{
+    node* ptr = *head;
+    node* item = createNode(data, (*head));
+    if(*head == NULL){
+        *head = item;
+        return;
+    }
+        
+    if(){
+        item->next = *head;
+        *head = item;
+        return;
+    }
+    
+    while(ptr->next != NULL && ptr->next->c < c){
+        ptr = ptr->next;
+    }
+
+    item->next = ptr->next;
+    ptr->next = item;
 }
