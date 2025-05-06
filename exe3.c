@@ -15,20 +15,19 @@ typedef struct node{
     struct node* next;
 } node;
 
+void inputDynamicMatrix(int** A, int rows, int cols);
 Triad createThree(int i, int j, int value);
 node* createNode(Triad data,node* next);
 void createThreeLists(int **A, int rows, int cols, node **pL1, node **pL2);
 void insert_to_list(node **head ,Triad data);
-void printDynamicMatrix(int** A, int rows, int cols);
-void inputDynamicMatrix(int** A, int rows, int cols);
 int** allocMatrix(int rows, int cols);
-void freeMatrix(void** A, int rows);
 void print_list(node* head);
+void freeMatrix(void** A, int rows);
 void free_list(node* head);
 
 int main()
 {
-    node *pL1 = NULL, *pL2 = NULL;
+    node *L1 = NULL, *L2 = NULL;
 	int rows, cols;
 
 	printf("please enter amount of rows for the matrix: \n");
@@ -38,28 +37,16 @@ int main()
 
 	int **c = allocMatrix(rows, cols);
 	inputDynamicMatrix(c, rows, cols);
-	createThreeLists(c, rows, cols, &pL1, &pL2);
+	createThreeLists(c, rows, cols, &L1, &L2);
 
 	printf("L1:\n");
-	print_list(pL1);
+	print_list(L1);
 	printf("L2:\n");
-	print_list(pL2);
+	print_list(L2);
 
 	freeMatrix((void**)c, rows);
-	free_list(pL1);
-	free_list(pL2);
-}
-
-void printDynamicMatrix(int** A, int rows, int cols) {
-	int i, j;
-	for (i = 0; i < rows; i++)
-	{
-		printf("\n");
-		for (j = 0; j < cols; j++)
-		{
-			printf("%d ", A[i][j]);
-		}
-	}
+	free_list(L1);
+	free_list(L2);
 }
 
 void inputDynamicMatrix(int** A, int rows, int cols) {
@@ -139,15 +126,6 @@ void print_list(node* head)
     }
 }
 
-void free_list(node* head){
-    node* temp = head;
-    while(head != NULL){
-        temp = head;
-        head = (head)->next;
-        free(temp);
-    }
-}
-
 int** allocMatrix(int rows, int cols) {
 	int i,j;
 
@@ -180,3 +158,13 @@ void freeMatrix(void** A, int rows) {
 	}
 	free(A);
 }
+
+void free_list(node* head){
+    node* temp = head;
+    while(head != NULL){
+        temp = head;
+        head = (head)->next;
+        free(temp);
+    }
+}
+
