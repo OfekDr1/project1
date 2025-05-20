@@ -2,5 +2,16 @@
 #include <stdio.h>
 #include <malloc.h>
 #define N 3
+#define SIZE 100
 
 char **split(char letter, char *str, int *p_size); 
+void printStringsArray(char **str_arr, int size);
+void freeMatrix (void **A, int rows);
+
+int main(){
+
+}
+
+char **split(char letter, char *str, int *p_size){
+    
+}
