@@ -3,7 +3,6 @@
 #include <malloc.h>
 #include<string.h>
 #define N 3
-#define SIZE 100
 
 char **split(char letter, char *str, int *p_size); 
 void printStringsArray(char **str_arr, int size);
@@ -14,16 +13,34 @@ int main(){
 }
 
 char **split(char letter, char *str, int *p_size){
-    int i = 1, count = 0;
+    int i = 1, count = 0, countLetters = 0;
     if(str[0] == letter) count++;
     
     while(str[i] != '\0'){
-        if(str[i] == letter && str[i - 1] == ' ')
+        if((str[i] == tolower(letter) || str[i] == toupper(letter)) && str[i - 1] == ' ')
             count++;
     }
     
-    char** array_of_strings = (char**)malloc(count * sizeof(char*));
-
+    int len = strlen(str);
+    for(int j = 0; j < strlen; j++)
+        if((str[i] == tolower(letter) || str[i] == toupper(letter)) && str[i - 1] == ' ')
+            
     
+        
+    char len = 0;
+    
+
+    char** array_of_strings = (char**)malloc(count * sizeof(char*));
+    for(int i = 0; i < count; i++)
+        array_of_strings[i] = (char*)malloc(sizeof(char));
+
+    int k = 0;
+    char* ptr = NULL;
+    ptr = strchr(str, letter);
+    while(str[i] != '\0')
+        if((ptr-1) == ' ')
+            while(str[i] != ' ')
+                
+
 
 }
