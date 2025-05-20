@@ -20,10 +20,15 @@ char **split(char letter, char *str, int *p_size){
         if((str[i] == tolower(letter) || str[i] == toupper(letter)) && str[i - 1] == ' ')
             count++;
     }
-    
+    char* find_letter = strchr(str, letter);
     int len = strlen(str);
+    while(str[i] != '\0')
     for(int j = 0; j < strlen; j++)
-        if((str[i] == tolower(letter) || str[i] == toupper(letter)) && str[i - 1] == ' ')
+        if(find_letter + 1 != ' ' && find_letter != NULL){
+            find_letter++;
+            countLetters++;
+        }
+
             
     
         
