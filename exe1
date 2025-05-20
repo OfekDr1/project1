@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <malloc.h>
+#include<string.h>
 #define N 3
 #define SIZE 100
 
@@ -9,9 +10,20 @@ void printStringsArray(char **str_arr, int size);
 void freeMatrix (void **A, int rows);
 
 int main(){
-
+    char str[100] = "google is good";
 }
 
 char **split(char letter, char *str, int *p_size){
+    int i = 1, count = 0;
+    if(str[0] == letter) count++;
     
+    while(str[i] != '\0'){
+        if(str[i] == letter && str[i - 1] == ' ')
+            count++;
+    }
+    
+    char** array_of_strings = (char**)malloc(count * sizeof(char*));
+
+    
+
 }
