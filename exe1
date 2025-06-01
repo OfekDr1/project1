@@ -71,29 +71,4 @@ void printStringsArray(char** str_arr, int size) {
         }
     }
 }
-    // char* find_letter = strchr(str, letter);
-    // int len = strlen(str);
-    
-    // for(int j = 0; j < strlen; j++)
-    //     if(find_letter + 1 != ' ' && find_letter != NULL){
-    //         find_letter++;
-    //         countLetters++;
-    //     }
-        
-    // char len = 0;
-    
-
-     
-    // for(int i = 0; i < count; i++)
-    //     array_of_strings[i] = (char*)malloc(sizeof(char));
-
-    // int k = 0;
-    // char* ptr = NULL;
-    // ptr = strchr(str, letter);
-    // while(str[i] != '\0')
-    //     if((ptr-1) == ' ')
-    //         while(str[i] != ' ')
-    //לבדוק בלולאה כמו בלאולאה הראשונה וברגע שהוא מוצא מילה שמתחילה באות תיהיה עוד לולאה שסופרת את כמות האותיות מאותו אות עד ה רווח הבא ואז יוצרת במאלוק פוינטר בגודל הזה
-
-
-}
+ 
