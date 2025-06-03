@@ -57,6 +57,10 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "exe1": "c"
+    "exe1": "c",
+    "assignment 2 template": "c",
+    "malloc.h": "c",
+    "stdio.h": "c",
+    "template": "c"
   }
 }

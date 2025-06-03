@@ -3,21 +3,19 @@
     Ofek drori #211785027
     Ori Amsalem #206508731
 */
-
 #define _CRT_SECURE_NO_WARNINGS
 
 /* Libraries */
-
-#include<string.h>
+#include <string.h>
 #include <stdio.h>
 #include <malloc.h>
+#include <stdlib.h>  
+#include <ctype.h>   
 
 /* Constant definitions */
-
 #define N 3
 
 /* Function declarations */
-
 void Ex1();
 void Ex2();
 void Ex3();
@@ -29,8 +27,6 @@ char commonLetter(char* filename);
 void decode(char* text);
 
 /* Declarations of auxiliary functions */
-
-void printStringsArray(char** str_arr, int size);
 void freeMatrix(void** A, int rows);
 
 /* ------------------------------- */
@@ -68,7 +64,11 @@ void Ex1()
     char str[100] = "google is Good";
     int psize = 0;
     char** newstr = split('g', str, &psize);
-    printStringsArray(newstr, psize);
+    if (newstr != NULL) {
+        printStringsArray(newstr, psize);
+       
+        freeMatrix((void**)newstr, psize);
+    }
 }
 
 void Ex2()
@@ -76,7 +76,10 @@ void Ex2()
     char result;
     createFile("input.txt");
     result = commonLetter("input.txt");
-    printf("Result is = %c", result);
+    if (result != '\0')
+        printf("Result is = %c", result);
+    else
+        printf("לא ניתן לקרוא את הקובץ.\n");
 }
 
 void Ex3()
@@ -88,7 +91,8 @@ void Ex3()
 
 char** split(char letter, char* str, int* p_size)
 {
-    int i = 0, count = 0, countLetters = 0;
+    int i = 0, count = 0;
+   
     while (str[i] != '\0') {
         if ((tolower(str[i]) == tolower(letter)) && (i == 0 || str[i - 1] == ' ')) {
             count++;
@@ -99,23 +103,38 @@ char** split(char letter, char* str, int* p_size)
     *p_size = count;
     if (count == 0) return NULL;
 
-    char** array_of_strings = malloc(count * sizeof(char*));
+   
+    char** array_of_strings = (char**)malloc(count * sizeof(char*));
+    if (array_of_strings == NULL) {
+        fprintf(stderr, "Memory allocation failed (array_of_strings)\n");
+        *p_size = 0;
+        return NULL;
+    }
+
     i = 0;
     int h = 0;
 
+   
     while (str[i] != '\0') {
-        if ((tolower(str[i]) == tolower(letter)) && (i == 0 || str[i - 1] == ' '))
-        {
+        if ((tolower(str[i]) == tolower(letter)) && (i == 0 || str[i - 1] == ' ')) {
             int j = i, countLetters = 0;
             while (str[j] != ' ' && str[j] != '\0') {
                 countLetters++;
                 j++;
             }
-            array_of_strings[h] = malloc((countLetters + 1) * sizeof(char));
+            array_of_strings[h] = (char*)malloc((countLetters + 1) * sizeof(char));
+            if (array_of_strings[h] == NULL) {
+                fprintf(stderr, "Memory allocation failed (array_of_strings[%d])\n", h);
+                freeMatrix((void**)array_of_strings, h);
+                *p_size = 0;
+                return NULL;
+            }
             h++;
         }
         i++;
     }
+
+
     i = 0;
     h = 0;
     while (str[i] != '\0') {
@@ -147,28 +166,32 @@ void printStringsArray(char** str_arr, int size) {
 void createFile(char* filename)
 {
     FILE* fp = fopen(filename, "w");
-    char c;
-    if (fp == NULL) 
-        fclose(fp);
+    if (fp == NULL) {
+        perror("Error opening file for writing");
+        return;
+    }
 
-    printf("Enter text (To stop - Enter Ctrl-z): ");
+    int c;
+    printf("Enter text (To stop - Enter Ctrl-Z then Enter):\n");
     while ((c = getchar()) != EOF) {
         fputc(c, fp);
     }
 
     fclose(fp);
 }
+
 char commonLetter(char* filename)
 {
     FILE* fp = fopen(filename, "r");
-    int maxCount = 0;
-    char c, maxChar;
-    int monim[26] = { 0 };
-
     if (fp == NULL) {
-        fclose(fp);
+        perror("Error opening file for reading");
         return '\0';
     }
+
+    int maxCount = 0;
+    char maxChar = '\0';
+    int monim[26] = { 0 };
+    int c;
 
     while ((c = fgetc(fp)) != EOF) {
         if (c >= 'a' && c <= 'z')
@@ -185,7 +208,6 @@ char commonLetter(char* filename)
     }
 
     fclose(fp);
-
     return maxChar;
 }
 
@@ -208,6 +230,17 @@ void decode(char* text)
 
 /* Definitions of auxiliary functions */
 
-/* Write Definitions Here! */
+void freeMatrix(void** A, int rows)
+{
+    if (A == NULL)
+        return;
+
+    for (int i = 0; i < rows; i++) {
+        if (A[i] != NULL) {
+            free(A[i]);
+        }
+    }
+    free(A);
+}
 
 /* ------------------- */
