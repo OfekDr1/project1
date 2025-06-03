@@ -53,7 +53,7 @@ int main()
             case 3: Ex3(); break;
             }
         } while (all_Ex_in_loop && select);
-    return 0;
+        return 0;
 }
 
 
@@ -61,12 +61,12 @@ int main()
 
 void Ex1()
 {
-    char str[100] = "google is Good";
+    char str[100] = "Rony Goodman got a good mark";
     int psize = 0;
     char** newstr = split('g', str, &psize);
     if (newstr != NULL) {
         printStringsArray(newstr, psize);
-       
+
         freeMatrix((void**)newstr, psize);
     }
 }
@@ -79,7 +79,7 @@ void Ex2()
     if (result != '\0')
         printf("Result is = %c", result);
     else
-        printf("לא ניתן לקרוא את הקובץ.\n");
+        printf("Error opening file for reading\n");
 }
 
 void Ex3()
@@ -92,7 +92,7 @@ void Ex3()
 char** split(char letter, char* str, int* p_size)
 {
     int i = 0, count = 0;
-   
+
     while (str[i] != '\0') {
         if ((tolower(str[i]) == tolower(letter)) && (i == 0 || str[i - 1] == ' ')) {
             count++;
@@ -103,10 +103,9 @@ char** split(char letter, char* str, int* p_size)
     *p_size = count;
     if (count == 0) return NULL;
 
-   
     char** array_of_strings = (char**)malloc(count * sizeof(char*));
     if (array_of_strings == NULL) {
-        fprintf(stderr, "Memory allocation failed (array_of_strings)\n");
+        fprintf(stderr, "Memory allocation failed\n");
         *p_size = 0;
         return NULL;
     }
@@ -114,7 +113,6 @@ char** split(char letter, char* str, int* p_size)
     i = 0;
     int h = 0;
 
-   
     while (str[i] != '\0') {
         if ((tolower(str[i]) == tolower(letter)) && (i == 0 || str[i - 1] == ' ')) {
             int j = i, countLetters = 0;
@@ -124,7 +122,7 @@ char** split(char letter, char* str, int* p_size)
             }
             array_of_strings[h] = (char*)malloc((countLetters + 1) * sizeof(char));
             if (array_of_strings[h] == NULL) {
-                fprintf(stderr, "Memory allocation failed (array_of_strings[%d])\n", h);
+                fprintf(stderr, "Memory allocation failed\n");
                 freeMatrix((void**)array_of_strings, h);
                 *p_size = 0;
                 return NULL;
@@ -133,7 +131,6 @@ char** split(char letter, char* str, int* p_size)
         }
         i++;
     }
-
 
     i = 0;
     h = 0;
@@ -227,8 +224,6 @@ void decode(char* text)
             i++;
     }
 }
-
-/* Definitions of auxiliary functions */
 
 void freeMatrix(void** A, int rows)
 {
